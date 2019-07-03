@@ -2,7 +2,6 @@ package com.aesher.test.news.Adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +19,14 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class NewsRecycler extends RecyclerView.Adapter<NewsRecycler.Viewholder> implements Filterable {
+public class NewsRecycler extends RecyclerView.Adapter<NewsRecycler.ViewHolder> implements Filterable {
 
     private List<NewsModel> locationModel;
     private List<NewsModel> newsModelFiltered;
@@ -42,13 +43,13 @@ public class NewsRecycler extends RecyclerView.Adapter<NewsRecycler.Viewholder> 
 
     @NonNull
     @Override
-    public Viewholder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_news_cards,viewGroup,false);
-        return new NewsRecycler.Viewholder(v);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final Viewholder viewholder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewholder, int i) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss", Locale.US);
         Date now = null;
@@ -85,7 +86,7 @@ public class NewsRecycler extends RecyclerView.Adapter<NewsRecycler.Viewholder> 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String charString = constraint.toString();
-                Log.w("Aashis", charString);
+
 
                 if (charString.isEmpty())
                     newsModelFiltered = locationModel;
@@ -110,13 +111,33 @@ public class NewsRecycler extends RecyclerView.Adapter<NewsRecycler.Viewholder> 
         };
     }
 
+    public void showOnlyFrom(String source){
+        List<NewsModel> filteredList = new ArrayList<>();
+        for(NewsModel newsModel : locationModel){
+            if(newsModel.getSource().toLowerCase().contains(source.toLowerCase()))
+                filteredList.add(newsModel);
+        }
+        newsModelFiltered = filteredList;
+        notifyDataSetChanged();
+    }
 
-        static class  Viewholder extends RecyclerView.ViewHolder {
+    public void sortByDesc(){
+        newsModelFiltered =locationModel;
+        Collections.reverse(newsModelFiltered);
+        notifyDataSetChanged();
+    }
+
+    public  void resetFilter(){
+        newsModelFiltered = locationModel;
+    }
+
+
+        static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView newsImage;
         TextView title,source,publishedTime;
         LinearLayout body;
 
-        private Viewholder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
               newsImage= itemView.findViewById(R.id.newsImage);
               title = itemView.findViewById(R.id.title);

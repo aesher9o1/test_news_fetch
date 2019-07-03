@@ -24,7 +24,8 @@ import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class NotificationScheduler {
-    public static final int DAILY_REMINDER_REQUEST_CODE=100;
+
+    private static final int DAILY_REMINDER_REQUEST_CODE=100;
     public static final String TAG="NotificationScheduler";
     private static final String NOTIFICATION_CHANNEL_ID = "100";
 
