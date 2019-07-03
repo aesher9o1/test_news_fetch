@@ -1,14 +1,26 @@
 package com.aesher.test.news.Activities.Main;
 
+import android.content.Context;
+
+import com.aesher.test.news.Const.LocalData;
+import com.aesher.test.news.R;
+
 public class MainActivityPresenter {
+    private LocalData localData;
+    private  Context context;
 
-    MainActivityPresenter(){}
+    MainActivityPresenter(Context context){
+        this.context = context;
+        this.localData = new LocalData(context);
 
-    public void setNews(){
-
+        if(localData.get_darkUI())
+            context.setTheme(R.style.AppThemeDark);
     }
 
-    public void fetchNews(){
+    public void setNews(){
+    }
+
+    public void fetchNews(boolean calledByRefresh){
 
     }
 
