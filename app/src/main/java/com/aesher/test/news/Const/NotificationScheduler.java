@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import com.aesher.test.news.Activities.Main.MainActivity;
 import com.aesher.test.news.R;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -26,9 +27,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotificationScheduler {
 
     private static final int DAILY_REMINDER_REQUEST_CODE=100;
-    public static final String TAG="NotificationScheduler";
-    private static final String NOTIFICATION_CHANNEL_ID = "100";
-
 
     public static void setReminder(Context context, Class<?> cls, int hour, int min)
     {
@@ -79,10 +77,7 @@ public class NotificationScheduler {
         pendingIntent.cancel();
     }
 
-    public static void showNotification(Context context, final String urlToImage, String title, String content)
-    {
-
-
+    public static void showNotification(Context context, final String urlToImage, String title, String content) throws IOException {
 
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -100,11 +95,14 @@ public class NotificationScheduler {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
+
+
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId, "Default channel", NotificationManager.IMPORTANCE_DEFAULT);
             Objects.requireNonNull(manager).createNotificationChannel(channel);
         }
-        Objects.requireNonNull(manager).notify(0, builder.build()); }
+        Objects.requireNonNull(manager).notify(0, builder.build());
 
+    }
 }

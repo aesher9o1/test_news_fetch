@@ -10,6 +10,7 @@ import com.aesher.test.news.Const.LocalData;
 import com.aesher.test.news.Interface.AsyncNews;
 import com.aesher.test.news.Threads.FetchNews;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -33,8 +34,12 @@ public class NewsService extends BroadcastReceiver {
             public void processFinished(List<NewsModel> s, String body) {
                 if(s.size()!=0)
                     localData.set_body(body);
-                NotificationScheduler.showNotification(context, s.get(0).getUrlToImage(),
-                        s.get(0).getTitle(), s.get(0).getDesc());
+                try {
+                    NotificationScheduler.showNotification(context, s.get(0).getUrlToImage(),
+                            s.get(0).getTitle(), s.get(0).getDesc());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
             }
