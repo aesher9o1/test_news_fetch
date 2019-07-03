@@ -1,7 +1,8 @@
-package com.aesher.test.news.Threads;
+package com.aesher.test.news.Adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aesher.test.news.Activities.Main.NewsModel;
+import com.aesher.test.news.Const.NewsModel;
 import com.aesher.test.news.Interface.RecyclerNewsClick;
 import com.aesher.test.news.R;
 import com.squareup.picasso.Picasso;
@@ -84,12 +85,14 @@ public class NewsRecycler extends RecyclerView.Adapter<NewsRecycler.Viewholder> 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String charString = constraint.toString();
+                Log.w("Aashis", charString);
+
                 if (charString.isEmpty())
                     newsModelFiltered = locationModel;
                 else {
                     List<NewsModel> filteredList = new ArrayList<>();
                     for(NewsModel newsModel : locationModel){
-                        if(newsModel.getTitle().contains(charString.toLowerCase()))
+                        if(newsModel.getTitle().toLowerCase().contains(charString.toLowerCase()))
                             filteredList.add(newsModel);
                     }
                     newsModelFiltered = filteredList;

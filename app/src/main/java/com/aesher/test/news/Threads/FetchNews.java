@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.webkit.URLUtil;
 
-import com.aesher.test.news.Activities.Main.NewsModel;
+import com.aesher.test.news.Const.NewsModel;
 import com.aesher.test.news.Const.Constants;
 import com.aesher.test.news.Interface.AsyncNews;
 

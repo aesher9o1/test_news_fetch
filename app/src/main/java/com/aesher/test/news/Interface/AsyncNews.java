@@ -1,6 +1,6 @@
 package com.aesher.test.news.Interface;
 
-import com.aesher.test.news.Activities.Main.NewsModel;
+import com.aesher.test.news.Const.NewsModel;
 
 import java.util.List;
 

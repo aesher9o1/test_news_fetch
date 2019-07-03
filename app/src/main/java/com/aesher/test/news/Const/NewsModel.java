@@ -1,4 +1,4 @@
-package com.aesher.test.news.Activities.Main;
+package com.aesher.test.news.Const;
 
 import java.util.Date;
 

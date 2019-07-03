@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 public class Constants {
     static  String SharedPreferenceName = "NewsFetch";
+    public static  String ConsumerKey = "b7e520bda6fa4f989ce5906cb156a0ec";
 
     public static boolean isJSONValid(String test) {
         try {
